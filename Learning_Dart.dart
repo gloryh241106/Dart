@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
@@ -347,13 +348,312 @@ void Function() {
   show(age: 25, name: 'John');
 
   // If the function is short, we can use the arrow function like this:
-  dynamic subtract(a, b) => a - b;
+  dynamic subtract(var num1, var num2) => num1 - (num2 ?? 0);
+  print(subtract(10, 5));
 
-  // We can use the lambda func
+  // Lambda Function
+  var addNumbers = (int a, int b) {
+    return a + b;
+  };
 }
 
 // In Dart, we can implement the function inside a function.
+
+// ======================= CLASSES ============================
+
+// We can implement the class in Dart like C++ and Java
+class Person {
+  // Properties - Which are the variables
+  String name = '';
+  int age = 0;
+
+  // Constructor - This is the initializer of the class
+  Person(String name, [int age = 18]) {
+    this.name = name;
+    this.age = age;
+  }
+
+  // Named Constructor 1 - Just like C++
+  void guest() {
+    name = 'Guest';
+    age = 18;
+  }
+
+  // Named Constructor 2 - We can implement straight the method of the class
+  Person.myCustomConstructor(this.name, this.age);
+
+  void showOutput() {
+    print(name);
+    print(age);
+  }
+}
+
+class X {
+  final name;
+  static const int age = 10;
+
+  X(this.name); // This constructor will assign name once, and it can't be changed
+}
+
+void ClassUsing() {
+  // Object
+  var person1 = Person('John', 25);
+  person1.showOutput();
+
+  var person2 = Person('Smith');
+  person2.showOutput();
+
+  var person3 = Person.myCustomConstructor('Doe', 30);
+  person3.showOutput();
+
+  var person4 = Person('John');
+  person4.guest();
+  person4.showOutput();
+
+  var x = X('Jack');
+  print(x.name);
+  print(X.age);
+
+  // x.name = 'Jill'; // This will give an error because the name is final
+  // x.age = 20; // This will give an error because the age is constant
+}
+
+// Inheritance
+// The superclass
+class Vehicles {
+  String? models;
+  int? year;
+
+  Vehicles(this.models, this.year);
+
+  void show() {
+    print("Models: $models");
+    print("Year: $year");
+  }
+}
+
+// The child class inherits the superclass
+class Cars extends Vehicles {
+  String? color;
+
+  Cars(String models, int year, this.color) : super(models, year);
+
+  void show() {
+    super.show();
+    print("Color: $color");
+  }
+}
+
+/* In the above example, the keyword super is used to call the class Vehicles
+   constructor. The super keyword in this case has all the properties of the
+   superclass Vehicles. So, in line 441, we call the show() method of the class
+   Vehicles using the super keyword, which makes us easier to code because 
+   we don't have to repeat the previous code */
+
+void InheritanceUsing() {
+  var car1 = Cars('BMW', 2021, 'Black');
+  car1.show();
+}
+
+// In the case the subclass need to override the superclass method
+// we can use the @override keyword
+
+// For example:
+class Object1 {
+  int serialNumber = 0;
+
+  Object1(this.serialNumber);
+
+  void show() {
+    print(serialNumber);
+  }
+
+  dynamic square(var num) => num * num;
+}
+
+class Object2 extends Object1 {
+  String name = '';
+  Object2(this.name, int serialNumber) : super(serialNumber);
+
+  @override
+  void show() {
+    print(name);
+    super.show();
+  }
+
+  // In case the object you want to similar to the superclass, we don't need the
+  // @override keyword
+  dynamic square(var num) => super.square(num);
+}
+
+void OverrideUsing() {
+  var obj1 = Object1(10);
+  obj1.show();
+  print(obj1.square(10));
+
+  var obj2 = Object2('John', 20);
+  obj2.show();
+  print(obj2.square(10));
+}
+
+// ======================= GETTERS AND SETTERS =================
+/* Getters and Setters are used to get and set the value of the instance variables
+   of a class. In Dart, we can use the get and set keywords to define the getters
+   and setters.
+*/
+
+class Rectangle {
+  double posX = 0;
+  double posY = 0;
+  double width = 0;
+  double height = 0;
+
+  Rectangle(this.posX, this.posY, this.width, this.height);
+
+  // Getters
+  double get right => posX + width;
+  double get bottom => posY + height;
+
+  // Setters
+  set right(double value) => posX = value - width;
+  set bottom(double value) => posY = value - height;
+}
+
+void GetterSetterUsing() {
+  var rect = Rectangle(3, 4, 20, 15);
+  print(rect.right);
+  print(rect.bottom);
+
+  rect.right = 12;
+  rect.bottom = 10;
+
+  print(rect.posX);
+  print(rect.posY);
+}
+
+// ======================= ABSTRACT CLASS ====================
+/* An abstract class is a class that cannot be instantiated. It is used to define
+   the structure of the class. To create an abstract class, we use the abstract
+   keyword. An abstract class can have abstract methods, which means that the
+   methods do not have a body. The abstract methods must be implemented in the
+   subclass.
+
+   In other words, the abstract class is a scaffold for the subclass to inherit.
+   All the subclasses must implement the abstract methods of the superclass.
+*/
+
+abstract class Animal {
+  void eat();
+  void move();
+}
+
+class Dog extends Animal {
+  @override
+  void eat() {
+    print('Dog is eating');
+  }
+
+  @override
+  void move() {
+    print('Dog is moving');
+  }
+}
+
+void AbstractClassUsing() {
+  var dog = Dog();
+  dog.eat();
+  dog.move();
+}
+
+// ======================= ENUMERATION =======================
+/* Enumeration is a way to define a group of constants. It is used to define a
+   collection of constant values. In Dart, we can create an enumeration using the
+   enum keyword. The enum keyword is followed by the name of the enumeration and
+   the list of constant values.
+*/
+
+enum Color { red, green, blue }
+
+void EnumerationUsing() {
+  print(Color.red);
+  print(Color.green);
+  print(Color.blue);
+}
+
+// ======================= EXCEPTION HANDLING =================
+
+/* 
+  Exception handling is a mechanism to handle runtime errors. In Dart, we can use
+   the try, catch, and finally blocks to handle exceptions. The try block contains
+   the code that may throw an exception. The catch block is used to handle the
+   exception. The finally block is always executed, whether an exception is thrown
+   or not.
+*/
+void ExceptionHandling() {
+  int x = 12;
+  int y = 0;
+  var result;
+
+  // Custom Exception - Remember to throw the exception
+  dynamic notDivideByZero(num x, num y) {
+    if (y == 0) throw Exception('Cannot divide by zero');
+    return x / y;
+  }
+
+  // Try - Except - Finally block
+  try {
+    result = notDivideByZero(x, y);
+  } catch (e) {
+    print(e);
+  } finally {
+    print('Finally block is always executed');
+  }
+}
+
+// ======================= FILE HANDLING ======================
+
+void FileHandling() {
+  var file = File('test.txt');
+
+  if (file.existsSync()) {
+    print('File exists');
+  } else {
+    print('File does not exist');
+  }
+
+  var content = file.readAsStringSync();
+  print(content);
+
+  var file2 = File('test2.txt');
+  file2.writeAsStringSync('Hello, World!');
+}
+
+// ======================= ASYNC AND AWAIT ====================
+
+void AsyncAwait() {
+  print('Fetching user details...');
+  getUserDetails();
+  print('Fetching user details...');
+
+  print('Fetching user details...');
+  getUserDetails2();
+  print('Fetching user details...');
+}
+
+void getUserDetails() {
+  Future.delayed(Duration(seconds: 3), () {
+    print('User details fetched successfully');
+  });
+}
+
+// This function will wait for the Future.delayed() to complete
+void getUserDetails2() async {
+  await Future.delayed(Duration(seconds: 3), () {
+    print('User details fetched successfully');
+  });
+}
+
 // ======================= MAIN FUNCTION ======================
 void main() {
-  Function();
+  AsyncAwait();
 }
