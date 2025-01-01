@@ -216,6 +216,102 @@ void Loops() {
   }
 }
 
+// ======================= COLLECTIONS ========================
+
+// List
+void ListUsing() {
+  // List
+  List numList = [1, 2, 3, 4, 5];
+  List<String> name = const ['John', 'Doe', 'Smith']; // This list is immutable
+
+  List<String> name2 = [
+    ...name
+  ]; // This list has all of the element of name list
+  print(numList);
+
+  // List Properties
+  print(numList.length);
+  print(numList.reversed);
+  print(numList.isEmpty);
+  print(numList.isNotEmpty);
+
+  // List Methods
+  numList.add(6);
+  numList.remove(6);
+  numList.removeAt(2);
+  numList.removeLast();
+  numList.removeRange(1, 3);
+  numList.removeWhere((n) => n % 2 != 0);
+  numList.addAll([7, 8, 9]);
+  numList.insert(1, 10);
+  numList.insertAll(3, [11, 12, 13]);
+  numList.replaceRange(1, 3, [14, 15, 16]);
+  numList.shuffle();
+  numList.sort();
+  numList.clear();
+}
+
+// Sets
+void SetUsing() {
+  // Set
+  Set numSet = {1, 2, 3, 4, 5};
+  var numSet2 = <int>{};
+  Set<String> name = {'John', 'Doe', 'Smith'};
+
+  // Set Properties
+  print(numSet.length);
+  print(numSet.isEmpty);
+  print(numSet.isNotEmpty);
+
+  // Set Methods
+  numSet.add(6);
+  numSet.remove(6);
+  numSet.contains(3);
+  numSet.clear();
+}
+
+// Maps
+void MapUsing() {
+  Map<String, int> country = {'USA': 1, 'UK': 44, 'India': 91};
+  var country2 = {'USA': 1, 'UK': 44, 'India': 91};
+  var country3 = Map();
+
+  // Map Properties
+  print(country.length);
+  print(country.isEmpty);
+  print(country.isNotEmpty);
+
+  // Map Methods
+  country['China'] = 86; // Add a new key-value pair
+  country.remove('UK'); // Remove a key-value pair
+  country.containsKey('USA'); // Check if the key exists
+  country.containsValue(1); // Check if the value exists
+  country.clear(); // Clear the map
+
+  // Map Iteration
+  country.forEach((key, value) {
+    print('Key: $key, Value: $value');
+  });
+
+  for (var key in country.keys) {
+    print(key);
+  }
+
+  for (var value in country.values) {
+    print(value);
+  }
+
+  country.entries.forEach((entry) {
+    print('Key: ${entry.key}, Value: ${entry.value}');
+  });
+
+  // Map fromIterable
+  var keys = ['USA', 'UK', 'India'];
+  var values = [1, 44, 91];
+  var country4 = Map.fromIterables(keys, values);
+  print(country4);
+}
+
 // ======================= FUNCTIONS ==========================
 
 void Function() {
@@ -249,59 +345,14 @@ void Function() {
 
   show(name: 'John', age: 25);
   show(age: 25, name: 'John');
+
+  // If the function is short, we can use the arrow function like this:
+  dynamic subtract(a, b) => a - b;
+
+  // We can use the lambda func
 }
 
 // In Dart, we can implement the function inside a function.
-
-// List
-void ListUsing() {
-  // List
-  List numList = [1, 2, 3, 4, 5];
-  List<String> name = const ['John', 'Doe', 'Smith']; // This list is immutable
-
-  List<String> name2 = [...name];// This list has all of the element of name list
-  print(numList);
-
-  // List Properties
-  print(numList.length);
-  print(numList.reversed);
-  print(numList.isEmpty);
-  print(numList.isNotEmpty);
-
-  // List Methods
-  numList.add(6);
-  numList.remove(6);
-  numList.removeAt(2);
-  numList.removeLast();
-  numList.removeRange(1, 3);
-  numList.removeWhere((n) => n % 2 != 0);
-  numList.addAll([7, 8, 9]);
-  numList.insert(1, 10);
-  numList.insertAll(3, [11, 12, 13]);
-  numList.replaceRange(1, 3, [14, 15, 16]);
-  numList.shuffle();
-  numList.sort();
-  numList.clear();
-}
-
-// Sets 
-void SetUsing() {
-  // Set
-  Set numSet = {1, 2, 3, 4, 5};
-  Set<String> name = {'John', 'Doe', 'Smith'};
-
-  // Set Properties
-  print(numSet.length);
-  print(numSet.isEmpty);
-  print(numSet.isNotEmpty);
-
-  // Set Methods
-  numSet.add(6);
-  numSet.remove(6);
-  numSet.contains(3);
-  numSet.clear();
-}
-
 // ======================= MAIN FUNCTION ======================
 void main() {
   Function();
